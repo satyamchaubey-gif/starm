@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Department Dashboard</h2>
+<div class="grid-3" style="margin-top: 1rem;">
+    <div class="metric-box">
+        <h4>Challenges Posted</h4>
+        <h3>{{ total_challenges }}</h3>
+    </div>
+    <div class="metric-box">
+        <h4>Total Applications</h4>
+        <h3>{{ total_apps }}</h3>
+    </div>
+    <div class="metric-box">
+        <h4>Active Pipeline</h4>
+        <div style="font-size: 0.85rem; margin-top: 0.5rem;">
+            {% for s in status_counts %}
+                <span class="badge badge-{{ s['status'] }}">{{ s['status'] }}: {{ s['count'] }}</span>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h3>Your Published Challenges</h3>
+        <a href="{{ url_for('new_challenge') }}" class="btn btn-success">+ Post New Challenge</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Theme</th>
+                <th>Timeline</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in challenges %}
+            <tr>
+                <td><strong>{{ c['title'] }}</strong></td>
+                <td>{{ c['theme'] }}</td>
+                <td>{{ c['timeline'] }}</td>
+                <td><span class="badge badge-{{ c['status'] }}">{{ c['status'] }}</span></td>
+                <td>
+                    <a href="{{ url_for('challenge_applications', challenge_id=c['id']) }}" class="btn">View Applications</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

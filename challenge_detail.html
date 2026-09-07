@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href="{{ url_for('startup_dashboard') }}" style="text-decoration: none; color: #3182ce;">&larr; Back to Challenges</a>
+
+<div class="card" style="margin-top: 1rem;">
+    <h2>{{ challenge['title'] }}</h2>
+    <p style="margin: 0.5rem 0;"><span class="badge badge-Active">{{ challenge['theme'] }}</span></p>
+    <hr style="margin: 1rem 0; border: 0; border-top: 1px solid #edf2f7;">
+
+    <h4>Problem Description</h4>
+    <p style="margin-bottom: 1rem; color: #4a5568;">{{ challenge['description'] }}</p>
+
+    <h4>Target Outcome / KPI</h4>
+    <p style="margin-bottom: 1rem; color: #4a5568;">{{ challenge['expected_outcome'] }}</p>
+
+    <div style="display: flex; gap: 2rem; margin-bottom: 1.5rem;">
+        <div><strong>Budget:</strong> {{ challenge['budget'] }}</div>
+        <div><strong>Timeline:</strong> {{ challenge['timeline'] }}</div>
+    </div>
+
+    {% if session.get('role') == 'startup' %}
+        {% if already_applied %}
+            <div class="flash" style="background: #e6fffa; color: #234e52; border-color: #b2f5ea;">
+                You submitted a proposal for this challenge. Current Status: <strong>{{ already_applied['status'] }}</strong>
+            </div>
+        {% else %}
+            <div style="background: #f7fafc; padding: 1.5rem; border-radius: 6px; border: 1px solid #e2e8f0;">
+                <h3>Submit Pilot Solution Proposal</h3>
+                <form method="POST">
+                    <div class="form-group">
+                        <label>Technical Solution Brief</label>
+                        <textarea name="solution_summary" rows="4" placeholder="How does your startup meet the target outcome?" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Core Team Size</label>
+                        <input type="number" name="team_size" placeholder="e.g. 5" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Phone / Email</label>
+                        <input type="text" name="contact_info" placeholder="contact@agritech.com | +91 9876543210" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit Proposal</button>
+                </form>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

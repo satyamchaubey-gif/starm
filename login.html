@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card auth-card">
+    <p class="eyebrow">Secure workspace</p>
+    <h2>Welcome back.</h2>
+    <p class="muted" style="margin-bottom: 1.5rem;">Sign in to manage challenges, proposals, and public innovation pilots.</p>
+    <form method="POST">
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" required placeholder="dept@gov.in or startup@test.com">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" required placeholder="dept123 or startup123">
+        </div>
+        <button type="submit" class="btn" style="width: 100%;">Sign In</button>
+    </form>
+    <p class="muted" style="margin-top: 1rem; font-size: 0.85rem;">Already received a code? <a href="{{ url_for('verify_email') }}">Verify your email</a></p>
+    <form method="POST" action="{{ url_for('resend_verification') }}" style="margin-top: 1rem;">
+        <div class="form-group">
+            <label for="verification-email">Need a new verification email?</label>
+            <input id="verification-email" type="email" name="email" required placeholder="you@example.com">
+        </div>
+        <button type="submit" class="btn btn-secondary" style="width: 100%;">Resend verification</button>
+    </form>
+    <p class="muted" style="margin-top: 1rem; font-size: 0.85rem;">New to StarM? <a href="{{ url_for('register') }}">Create an organization account</a></p>
+</div>
+{% endblock %}

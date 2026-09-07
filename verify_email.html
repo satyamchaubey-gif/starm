@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card auth-card">
+    <p class="eyebrow">Email verification</p>
+    <h2>Enter your verification code.</h2>
+    <p class="muted" style="margin-bottom: 1.5rem;">Enter the six-digit code sent to your email. The code expires in 15 minutes.</p>
+    <form method="POST">
+        <div class="form-group">
+            <label for="verification-email">Email</label>
+            <input id="verification-email" type="email" name="email" required value="{{ email }}">
+        </div>
+        <div class="form-group">
+            <label for="verification-code">Verification code</label>
+            <input id="verification-code" type="text" name="code" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code">
+        </div>
+        <button type="submit" class="btn" style="width: 100%;">Verify email</button>
+    </form>
+</div>
+{% endblock %}
