@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card auth-card">
+    <p class="eyebrow">Join the network</p>
+    <h2>Build what matters.</h2>
+    <p class="muted" style="margin-bottom: 1.5rem;">Create a workspace for your startup or government department.</p>
+    <form method="POST">
+        <div class="form-group">
+            <label>Organization / Startup Name</label>
+            <input type="text" name="name" required>
+        </div>
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label>Account Role</label>
+            <select name="role">
+                <option value="startup">Startup</option>
+                <option value="department">Government Department</option>
+            </select>
+        </div>
+        <button type="submit" class="btn" style="width: 100%;">Register</button>
+    </form>
+</div>
+{% endblock %}

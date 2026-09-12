@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href="{{ url_for('dept_dashboard') }}" style="text-decoration: none; color: #3182ce;">&larr; Back to Dashboard</a>
+<div class="card" style="margin-top: 1rem;">
+    <h2>Applications for: {{ challenge['title'] }}</h2>
+    <p style="color: #718096; margin-top: 0.3rem;">Evaluation & Milestone Progression Pipeline</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Startup Name</th>
+                <th>Proposed Solution</th>
+                <th>Team & Contact</th>
+                <th>Current Pipeline Stage</th>
+                <th>Update Stage</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in applications %}
+            <tr>
+                <td><strong>{{ app['startup_name'] }}</strong></td>
+                <td style="max-width: 300px;"><small>{{ app['solution_summary'] }}</small></td>
+                <td>
+                    <small>Size: {{ app['team_size'] }}<br>{{ app['contact_info'] }}</small>
+                </td>
+                <td><span class="badge badge-{{ app['status'] }}">{{ app['status'] }}</span></td>
+                <td>
+                    <form action="{{ url_for('update_status', app_id=app['id']) }}" method="POST" style="display: flex; gap: 0.4rem;">
+                        <input type="hidden" name="challenge_id" value="{{ challenge['id'] }}">
+                        <select name="status" style="font-size: 0.85rem;">
+                            {% for opt in ['Screening', 'Shortlisted', 'Pilot', 'Completed', 'Scaled', 'Rejected'] %}
+                                <option value="{{ opt }}" {% if app['status'] == opt %}selected{% endif %}>{{ opt }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn" style="padding: 0.3rem 0.6rem;">Set</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5">No startups have applied yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

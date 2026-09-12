@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card auth-card">
+    <p class="eyebrow">Secure workspace</p>
+    <h2>Welcome back.</h2>
+    <p class="muted" style="margin-bottom: 1.5rem;">Sign in to manage challenges, proposals, and public innovation pilots.</p>
+    <form method="POST">
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" required placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" required placeholder="your password">
+        </div>
+        <button type="submit" class="btn" style="width: 100%;">Sign In</button>
+    </form>
+    <p class="muted" style="margin-top: 1rem; font-size: 0.85rem;">New to StarM? <a href="{{ url_for('register') }}">Create an organization account</a></p>
+</div>
+{% endblock %}

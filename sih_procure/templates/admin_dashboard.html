@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>State Innovation Admin Dashboard</h2>
+<div class="grid-3" style="margin-top: 1rem;">
+    <div class="metric-box">
+        <h4>Registered Startups</h4>
+        <h3>{{ total_startups }}</h3>
+    </div>
+    <div class="metric-box">
+        <h4>Active Challenges</h4>
+        <h3>{{ total_challenges }}</h3>
+    </div>
+    <div class="metric-box">
+        <h4>Total Applications</h4>
+        <h3>{{ total_applications }}</h3>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Application Funnel Breakdown</h3>
+    <div style="margin-top: 0.5rem;">
+        {% for s in status_counts %}
+            <span class="badge badge-{{ s['status'] }}" style="padding: 0.4rem 0.8rem; font-size: 0.9rem;">{{ s['status'] }}: {{ s['count'] }}</span>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="card">
+    <h3>All Platform Challenges</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Theme</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in all_challenges %}
+            <tr>
+                <td>{{ c['title'] }}</td>
+                <td>{{ c['theme'] }}</td>
+                <td><span class="badge badge-{{ c['status'] }}">{{ c['status'] }}</span></td>
+                <td>
+                    <a href="{{ url_for('toggle_challenge', challenge_id=c['id']) }}" class="btn" style="padding: 0.3rem 0.6rem;">
+                        Mark {{ 'Closed' if c['status'] == 'Active' else 'Active' }}
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

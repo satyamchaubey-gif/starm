@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="error-state card">
+    <p class="error-code">{{ code }}</p>
+    <p class="eyebrow">Workspace pause</p>
+    <h2>{{ title }}</h2>
+    <p class="muted">{{ message }}</p>
+    <a class="btn" href="{{ url_for('index') }}">Return to workspace</a>
+</section>
+{% endblock %}
